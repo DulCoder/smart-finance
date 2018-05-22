@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+
+
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!-- 自动扫描(自动注入) -->
+    <context:component-scan base-package="com.smart.finance.controller"/>
+
+    <!--两个标准配置  -->
+    <!--将springmvc不能处理的请求交给tomcat
+        default-servlet-handler 将在 SpringMVC 上下文中定义一个 DefaultServletHttpRequestHandler,
+        它会对进入 DispatcherServlet 的请求进行筛查, 如果发现是没有经过映射的请求, 就将该请求交由 WEB 应用服务器默认的
+        Servlet 处理. 如果不是静态资源的请求，才由 DispatcherServlet 继续处理
+        一般 WEB 应用服务器默认的 Servlet 的名称都是 default.
+        若所使用的 WEB 服务器的默认 Servlet 名称不是 default，则需要通过 default-servlet-name 属性显式指定-->
+    <mvc:default-servlet-handler/>
+    <!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax...映射动态请求 -->
+    <mvc:annotation-driven/><!-- cache-period="315360000" -->
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+
+    <!--===============通用视图解析器 begin===============-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--===============通用视图解析器 end===============-->
+
+    <!--设置注册和登录页面不需要访问控制器，直接跳转-->
+    <mvc:view-controller path="/user/register" view-name="user/register"></mvc:view-controller>
+    <mvc:view-controller path="/user/login" view-name="user/login"></mvc:view-controller>
+
+
+    <!--  上传文件定义大小 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="utf-8">
+        <property name="maxUploadSize" value="50048000"/>
+    </bean>
+</beans>
