@@ -25,7 +25,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
         <property name="dataSource" ref="dataSource"></property>
-        <!--<property name="mapperLocations" value="classpath:mapper/*.xml"></property>-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
     </bean>
 
     <!-- 配置扫描器，将mybatis接口的实现加入到ioc容器中 -->
