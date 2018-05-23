@@ -8,13 +8,11 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd 
 	http://www.springframework.org/schema/context 
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd 
-
-
-	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
     <!-- 自动扫描(自动注入) -->
-    <context:component-scan base-package="com.smart.finance.controller"/>
+    <context:component-scan base-package="com.smart.*.controller"/>
 
     <!--两个标准配置  -->
     <!--将springmvc不能处理的请求交给tomcat
@@ -38,9 +36,8 @@
     <!--===============通用视图解析器 end===============-->
 
     <!--设置注册和登录页面不需要访问控制器，直接跳转-->
-    <mvc:view-controller path="/user/register" view-name="user/register"></mvc:view-controller>
-    <mvc:view-controller path="/user/login" view-name="user/login"></mvc:view-controller>
-
+    <!--<mvc:view-controller path="/user/register" view-name="user/register"></mvc:view-controller>-->
+    <mvc:view-controller path="/user/login" view-name="login"></mvc:view-controller>
 
     <!--  上传文件定义大小 -->
     <bean id="multipartResolver"

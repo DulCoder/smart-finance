@@ -9,11 +9,42 @@
     <artifactId>finance-web</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+
+        <servlet.version>3.1.0</servlet.version>
+        <jsp.version>2.0</jsp.version>
+        <jstl.version>1.2</jstl.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.smart</groupId>
             <artifactId>finance-manager</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--servlet jsp-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

@@ -18,6 +18,10 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
+  <!-- servlet启动监听器 -->
+  <listener>
+    <listener-class>com.smart.web.system.ServerStartupListener</listener-class>
+  </listener>
 
   <!-- 解决post乱码 -->
   <filter>
