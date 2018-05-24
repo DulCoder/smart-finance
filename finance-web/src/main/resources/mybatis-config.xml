@@ -11,7 +11,7 @@
 
     <typeAliases>
         <!-- 别名 -->
-        <package name="com.smart.finance.common.po"/>
+        <package name="com.smart.common.bean"/>
     </typeAliases>
 
     <!--<plugins>-->

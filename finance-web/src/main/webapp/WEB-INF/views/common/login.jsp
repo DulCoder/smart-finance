@@ -49,7 +49,6 @@
 
 <form id="frm" class="frm" onsubmit="return false" action="##" method="post">
     <h1>Smart-Finance Login</h1>
-
     <div class="input-group input-group-lg">
         <span class="input-group-addon" >用户名：</span>
         <input id="username" maxlength="35" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" autocomplete="off">
@@ -116,25 +115,25 @@
         }
 
         var password = MD5(username+'#'+pswd);
-        var data = {'email':username,'password':password,'vCode':vCode};
-
+        var data = {'userAcc':username,'password':password,'vCode':vCode};
+         console.log(password)
         $.ajax({
-            url:"user/submitLogin",
+            url:"sys/submitLogin",
             data:data,
             async:false,
             type:'POST',
             dataType:'json',
             success:function (callBack) {
                 console.log(callBack)
-                if (callBack.status=='200'){
-                    console.log(callBack.pageId)
-                    window.location.href="common/page?pageId="+callBack.pageId;
+                if (callBack.code=='200'){
+                    layer.msg(callBack.extend.message, {time:2000, icon:6, shift:3}, function(){});
+                    window.location.href = "sys/main";
                 }else {
-                    alert(callBack.message);
+                    layer.msg(callBack.extend.message, {time:2000, icon:5, shift:6}, function(){});
                     getVCode();
                 }
             },error:function (e) {
-                alert('failure');
+                layer.msg(e, {time:2000, icon:5, shift:6}, function(){});
             }
         })
     }
@@ -143,7 +142,7 @@
      * 注册页面
      */
     function register() {
-        window.location="${APP_PATH}/user/register";
+        layer.msg("运营平台用户注册接口不对外开放！", {time:2000, icon:0, shift:5}, function(){});
     }
 
     /**

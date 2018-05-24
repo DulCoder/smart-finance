@@ -80,7 +80,7 @@ public class DispatcherController {
         if (null != user) {
             if (entity.getPassword().equals(user.getPassword())) {
                 session.setAttribute("_isLogin",true);
-                return ResponseModel.success().add("message", "登录成功！").add("pageId", "student/index");
+                return ResponseModel.success().add("message", "登录成功！");
             } else {
                 return ResponseModel.failed().add("message", "密码错误！");
             }
@@ -122,7 +122,7 @@ public class DispatcherController {
 
     @RequestMapping("/login")
     public String login() {
-        return "login";
+        return "common/login";
     }
 
     @RequestMapping("/error")
@@ -133,12 +133,12 @@ public class DispatcherController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:login";
+        return "redirect:common/login";
     }
 
     @RequestMapping("/main")
     public String main() {
-        return "main";
+        return "common/main";
     }
 
 }

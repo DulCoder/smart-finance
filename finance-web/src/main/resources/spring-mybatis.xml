@@ -25,13 +25,17 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
         <property name="dataSource" ref="dataSource"></property>
-        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:mapper/*.xml</value>
+            </list>
+        </property>
     </bean>
 
     <!-- 配置扫描器，将mybatis接口的实现加入到ioc容器中 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--扫描所有dao接口的实现，加入到ioc容器中 -->
-        <property name="basePackage" value="com.smart.permission.*.dao"></property>
+        <property name="basePackage" value="com.smart.*.dao"></property>
     </bean>
 
     <!-- 事务管理器 -->
@@ -59,7 +63,7 @@
     <!-- AOP配置-->
     <aop:config>
         <aop:pointcut id="myPointcut"
-                      expression="execution(public * com.smart.finance.*.service.impl.*.*(..))" />
+                      expression="execution(public * com.smart.*.service.impl.*.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut" />
     </aop:config>
 </beans>
