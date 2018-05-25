@@ -3,7 +3,7 @@ package com.smart.common.bean;
 import java.util.Date;
 
 public class SysUser {
-    private String id;
+    private Long id;
 
     private String userAcc;
 
@@ -19,12 +19,12 @@ public class SysUser {
 
     private String locked;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUserAcc() {
@@ -81,19 +81,5 @@ public class SysUser {
 
     public void setLocked(String locked) {
         this.locked = locked == null ? null : locked.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "SysUser{" +
-                "id='" + id + '\'' +
-                ", userAcc='" + userAcc + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", createTime=" + createTime +
-                ", lastLoginTime=" + lastLoginTime +
-                ", locked='" + locked + '\'' +
-                '}';
     }
 }
