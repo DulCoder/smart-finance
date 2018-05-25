@@ -88,7 +88,7 @@
      * 获取验证码
      */
     function getVCode() {
-        $("#imgCode").attr("src","sys/getVCode?"+ Math.random());
+        $("#imgCode").attr("src","${APP_PATH}/sys/getVCode?"+ Math.random());
     }
 
     /**
@@ -100,8 +100,7 @@
         var vCode = $("#vCode").val();
 
         if (username=='') {
-            layer.msg("用户登录账号不能为空，请输入", {time: 2000, icon: 5, shift: 6}, function () {
-            });
+            layer.msg("用户登录账号不能为空，请输入", {time: 2000, icon: 5, shift: 6}, function () {});
             return;
         }
 
@@ -118,16 +117,15 @@
         var data = {'userAcc':username,'password':password,'vCode':vCode};
          console.log(password)
         $.ajax({
-            url:"sys/submitLogin",
+            url:"${APP_PATH}/sys/submitLogin",
             data:data,
             async:false,
             type:'POST',
             dataType:'json',
             success:function (callBack) {
-                console.log(callBack)
                 if (callBack.code=='200'){
-                    layer.msg(callBack.extend.message, {time:2000, icon:6, shift:3}, function(){});
-                    window.location.href = "sys/main";
+                    layer.msg(callBack.extend.message, {time:2000, icon:6, shift:0}, function(){});
+                    window.location.href = "${APP_PATH}/sys/main";
                 }else {
                     layer.msg(callBack.extend.message, {time:2000, icon:5, shift:6}, function(){});
                     getVCode();
