@@ -17,8 +17,8 @@
     <meta name="author" content="">
     <title>登录</title>
 
-    <link rel="stylesheet" href="${APP_PATH}/js/bootstrap/3.3.7/css/bootstrap.css" />
-    <link rel="stylesheet" href="${APP_PATH}/js/bootstrap/3.3.7/css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="${APP_PATH}/bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="${APP_PATH}/bootstrap-3.3.7-dist/css/bootstrap-theme.css" />
     <style>
         .input-group span{
             width: 120px;
