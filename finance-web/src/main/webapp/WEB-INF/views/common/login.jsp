@@ -56,7 +56,7 @@
 
     <div class="input-group input-group-lg">
         <span class="input-group-addon" id="sizing-addon2">密码：</span>
-        <input type="password" maxlength="28" id="pswd" class="form-control" placeholder="password" aria-describedby="sizing-addon1" autocomplete="off">
+        <input type="password" maxlength="28" id="password" class="form-control" placeholder="password" aria-describedby="sizing-addon1" autocomplete="off">
     </div>
 
     <div class="input-group input-group-lg">
@@ -104,7 +104,7 @@
             return;
         }
 
-        if (pswd==''){
+        if (!pswd){
             layer.msg("用户登录密码不能为空，请输入", {time:2000, icon:5, shift:6}, function(){});
             return;
         }
@@ -114,8 +114,9 @@
         }
 
         var password = MD5(username+'#'+pswd);
+        console.log(username+'#'+pswd)
+        console.log(password);
         var data = {'userAcc':username,'password':password,'vCode':vCode};
-         console.log(password)
         $.ajax({
             url:"${APP_PATH}/sys/submitLogin",
             data:data,

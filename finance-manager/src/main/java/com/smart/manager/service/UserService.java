@@ -20,13 +20,13 @@ public interface UserService {
 
     int insertUser(SysUser user);
 
-    SysUser queryById(Integer id);
+    SysUser queryById(Long id);
 
     int countUserByAcc(String userAcc);
 
     int updateUser(SysUser user);
 
-    int deleteUserById(Integer id);
+    int deleteUserById(Long id);
 
     int deleteUsers(Map<String, Object> map);
 

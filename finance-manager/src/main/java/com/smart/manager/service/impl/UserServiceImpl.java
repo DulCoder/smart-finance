@@ -29,37 +29,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<SysUser> pageQueryData(Map<String, Object> map) {
-        return null;
+        return userMapper.pageQueryData(map);
     }
 
     @Override
     public int pageQueryCount(Map<String, Object> map) {
-        return 0;
+        return userMapper.pageQueryCount(map);
     }
 
     @Override
     public int insertUser(SysUser user) {
-        return 0;
+        return userMapper.insertUser(user);
     }
 
     @Override
-    public SysUser queryById(Integer id) {
-        return null;
+    public SysUser queryById(Long id) {
+        return userMapper.queryById(id);
     }
 
     @Override
     public int countUserByAcc(String userAcc) {
-        return 0;
+        return userMapper.countUserByAcc(userAcc);
     }
 
     @Override
     public int updateUser(SysUser user) {
-        return 0;
+        return userMapper.updateUser(user);
     }
 
     @Override
-    public int deleteUserById(Integer id) {
-        return 0;
+    public int deleteUserById(Long id) {
+        return userMapper.deleteUserById(id);
     }
 
     @Override

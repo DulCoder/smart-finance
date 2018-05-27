@@ -11,118 +11,43 @@
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="locked" jdbcType="CHAR" property="locked" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, user_acc, username, password, salt, create_time, last_login_time, locked
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_user
-    where id = #{id,jdbcType=VARCHAR}
+
+  <select id="pageQueryData" resultType="com.smart.common.bean.SysUser">
+    SELECT
+    *
+    FROM sys_user
+    <where>
+      <if test="queryText != null">
+        AND user_acc LIKE concat('%', #{queryText}, '%')
+      </if>
+    </where>
+    ORDER BY create_time DESC
+    limit #{start}, #{size}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from sys_user
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.smart.common.bean.SysUser">
-    insert into sys_user (id, user_acc, username, 
-      password, salt, create_time, 
-      last_login_time, locked)
-    values (#{id,jdbcType=VARCHAR}, #{userAcc,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{locked,jdbcType=CHAR})
+
+  <select id="pageQueryCount" resultType="int">
+    SELECT
+    COUNT(*)
+    FROM sys_user
+    <where>
+      <if test="queryText != null" >
+        AND user_acc LIKE concat('%',#{queryText},'%')
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertUser">
+    INSERT INTO  sys_user(
+    user_acc,username,password,create_time
+    ) VALUES (
+    #{userAcc},#{username},#{password},#{createTime}
+    )
   </insert>
-  <insert id="insertSelective" parameterType="com.smart.common.bean.SysUser">
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userAcc != null">
-        user_acc,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="salt != null">
-        salt,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="lastLoginTime != null">
-        last_login_time,
-      </if>
-      <if test="locked != null">
-        locked,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="userAcc != null">
-        #{userAcc,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        #{salt,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastLoginTime != null">
-        #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="locked != null">
-        #{locked,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.common.bean.SysUser">
-    update sys_user
-    <set>
-      <if test="userAcc != null">
-        user_acc = #{userAcc,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        salt = #{salt,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastLoginTime != null">
-        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="locked != null">
-        locked = #{locked,jdbcType=CHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
+
+  <update id="updateUser">
+    UPDATE sys_user
+    SET username = #{username},locked = #{locked}
+    WHERE id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.common.bean.SysUser">
-    update sys_user
-    set user_acc = #{userAcc,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      locked = #{locked,jdbcType=CHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+
 </mapper>
