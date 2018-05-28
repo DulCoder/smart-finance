@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int deleteUsers(Map<String, Object> map) {
-        return 0;
+        return userMapper.deleteUsers(map);
     }
 
     @Override

@@ -38,9 +38,9 @@
 
   <insert id="insertUser">
     INSERT INTO  sys_user(
-    user_acc,username,password,create_time
+    user_acc,username,password,locked,create_time
     ) VALUES (
-    #{userAcc},#{username},#{password},#{createTime}
+    #{userAcc},#{username},#{password},#{locked},#{createTime}
     )
   </insert>
 
@@ -49,5 +49,12 @@
     SET username = #{username},locked = #{locked}
     WHERE id = #{id}
   </update>
+
+  <delete id="deleteUsers">
+    DELETE FROM sys_user WHERE id IN
+    <foreach collection="userIds" item="id" open="(" close= ")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
 
 </mapper>

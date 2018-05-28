@@ -8,7 +8,6 @@ import com.smart.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,7 +76,7 @@ public class UserController {
         user.setCreateTime(new Date());
         user.setPassword(MD5Utils.getMD5(user.getUserAcc()+"#123456"));
         int success = userService.insertUser(user);
-        if (success==1){
+        if (success > 0){
             return ResponseModel.success();
         }
 
@@ -95,7 +94,7 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public ResponseModel updateUser(SysUser user){
         int success = userService.updateUser(user);
-        if (success == 1){
+        if (success > 0){
             return ResponseModel.success();
         }
 
@@ -103,14 +102,32 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public ResponseModel deleteUser(@PathVariable("id")Long id){
+    @RequestMapping(value = "/user", method = RequestMethod.DELETE)
+    public ResponseModel deleteUser(Long id){
         int success = userService.deleteUserById(id);
-        if (success == 1){
+        if (success > 0){
             return ResponseModel.success();
         }
 
         return ResponseModel.failed();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deletes", method = RequestMethod.DELETE)
+    public ResponseModel deleteUsers(Long[] id){
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("userIds", id);
+            int success = userService.deleteUsers(map);
+            if (success > 0){
+                return ResponseModel.success();
+            }else {
+                return ResponseModel.failed();
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            return ResponseModel.failed();
+        }
     }
 
 }

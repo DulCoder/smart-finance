@@ -30,4 +30,6 @@ public interface UserMapper {
 
     @Delete("DELETE FROM sys_user WHERE id = #{id}")
     int deleteUserById(Long id);
+
+    int deleteUsers(Map<String, Object> map);
 }

@@ -168,6 +168,7 @@
                     <hr style="clear:both;">
                     <div class="table-responsive">
                         <form id="userForm">
+                            <input type="hidden" name="_method" value="DELETE">
                             <table class="table  table-bordered">
                                 <thead>
                                 <tr>
@@ -312,6 +313,7 @@
 
         pageQuery(1);
 
+        //按钮点击事件
         $("#queryBtn").click(function () {  //条件查询按钮
             var queryText = $("#queryText").val();
             if (queryText == "") {
@@ -323,13 +325,20 @@
             pageQuery(1);
         });
 
-        $("#allSelBox").click(function () {   //全选框按钮
+        $("#allSelBox").click(function () {   //全选框按钮点击事件
             var flg = this.checked;
 
             $("#userData :checkbox").each(function () {
                 this.checked = flg;
             });
         });
+
+        $(document).on("click",".check_item",function(){ //复选框点击事件
+            //判断当前选择中的元素是否等于总数
+            var flag = $(".check_item:checked").length==$(".check_item").length;
+            $("#allSelBox").prop("checked",flag);
+        });
+        
     });
 
     var pageTotal = 1;
@@ -365,7 +374,7 @@
                     $.each(users, function (i, user) {
                         tableContent += '<tr>';
                         tableContent += '  <td>' + (i + 1) + '</td>';
-                        tableContent += '  <td><input type="checkbox" name="id" value="' + user.id + '"></td>';
+                        tableContent += '  <td><input type="checkbox" name="id" class="check_item" value="' + user.id + '"></td>';
                         tableContent += '  <td>' + user.userAcc + '</td>';
                         tableContent += '  <td>' + user.username + '</td>';
                         tableContent += '  <td>' + (user.locked == 0 ? "<span style='color: green'>未锁定</span>" : "<span style='color: red'>已锁定</span>") + '</td>';
@@ -420,7 +429,7 @@
      * 保存新用户
      */
     function saveUser() {
-        if (!validate_add_form()) {
+        if (validate_add_form()==0) {
             return false;
         }
 
@@ -460,15 +469,15 @@
 
             // 删除用户信息
             $.ajax({
-                type: "DELETE",
-                url: "${APP_PATH}/user/user/"+id,
+                url: "${APP_PATH}/user/user",
+                type: "POST",
+                data:{_method:"DELETE","id":id},
                 success: function (result) {
-                    if (result.success) {
+                    if (result.code=='200') {
                         pageQuery(1);
                         layer.msg("删除用户成功", {time:2000, icon:6, shift:0}, function(){});
                     } else {
-                        layer.msg("用户信息删除失败", {time: 2000, icon: 5, shift: 6}, function () {
-                        });
+                        layer.msg("用户信息删除失败", {time: 2000, icon: 5, shift: 6}, function () {});
                     }
                 }
             });
@@ -485,10 +494,9 @@
     function deleteUsers() {
         var boxes = $("#userData :checkbox");
         if (boxes.length == 0) {
-            layer.msg("请选择需要删除的用户信息", {time: 2000, icon: 5, shift: 6}, function () {
-
-            });
+            layer.msg("请选择需要删除的用户信息", {time: 2000, icon: 5, shift: 6}, function () {});
         } else {
+            console.log($("#userForm").serialize())
             layer.confirm("删除选择的用户信息, 是否继续", {icon: 3, title: '提示'}, function (cindex) {
                 // 删除选择的用户信息
                 $.ajax({
@@ -496,7 +504,8 @@
                     url: "${APP_PATH}/user/deletes",
                     data: $("#userForm").serialize(),
                     success: function (result) {
-                        if (result.success) {
+                        console.log(result)
+                        if (result.code == '200') {
                             pageQuery(1);
                         } else {
                             layer.msg("用户信息删除失败", {time: 2000, icon: 5, shift: 6}, function () {
@@ -589,11 +598,11 @@
     function validate_add_form() {
         // 1、拿到要校验的数据，使用正则表达式
         var userAcc = $("#userAcc_add_input").val();
-        var regName = /(^[a-zA-Z0-9_-]{4,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
+        var regName = /(^[a-zA-Z0-9_-]{3,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
         if (!regName.test(userAcc)) {
             show_validate_msg("#userAcc_add_input", "error",
-                "用户名可以是2-5位中文或者4-16位英文和数字的组合");
-            return false;
+                "用户名可以是2-5位中文或者3-16位英文和数字的组合");
+            return 0;
         } else {
             show_validate_msg("#userAcc_add_input", "success", "");
         }
@@ -602,7 +611,7 @@
         if (username.trim().length==0) {
             show_validate_msg("#username_add_input", "error",
                 "用户名不能为空");
-            return false;
+            return 0;
         } else {
             show_validate_msg("#username_add_input", "success", "");
         }
@@ -655,7 +664,6 @@
             $(ele).next("span").text(msg);
         }
     }
-
 
     /**
      * 清空表格数据
