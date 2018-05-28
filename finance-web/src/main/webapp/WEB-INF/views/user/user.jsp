@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zh-CN">
 <head>
-    <title>用户首页</title>
+    <title>用户管理</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,131 +17,10 @@
 
     <link rel="stylesheet" href="${APP_PATH}/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${APP_PATH}/css/main.css">
-    <style>
-        .tree li {
-            list-style-type: none;
-            cursor: pointer;
-        }
-
-        table tbody tr:nth-child(odd) {
-            background: #F4F4F4;
-        }
-
-        table tbody td:nth-child(even) {
-            color: #C00;
-        }
-    </style>
 </head>
 
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <div><a class="navbar-brand" style="font-size:32px;" href="#">Smart finance - 用户维护</a></div>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li style="padding-top:8px;">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-success dropdown-toggle"
-                                data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                            <li class="divider"></li>
-                            <li><a href="${APP_PATH}/sys/logout"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li style="margin-left:10px;padding-top:8px;">
-                    <button type="button" class="btn btn-default btn-danger">
-                        <span class="glyphicon glyphicon-question-sign"></span> 帮助
-                    </button>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <div class="tree">
-                <ul style="padding-left:0px;" class="list-group">
-                    <li class="list-group-item tree-closed">
-                        <a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a>
-                    </li>
-                    <li class="list-group-item">
-                        <span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge"
-                                                                                             style="float:right">3</span></span>
-                        <ul style="margin-top:10px;">
-                            <li style="height:30px;">
-                                <a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="role.html"><i class="glyphicon glyphicon-king"></i> 角色维护</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="list-group-item tree-closed">
-                        <span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge"
-                                                                                style="float:right">3</span></span>
-                        <ul style="margin-top:10px;display:none;">
-                            <li style="height:30px;">
-                                <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 广告审核</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="auth_project.html"><i class="glyphicon glyphicon-check"></i> 项目审核</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="list-group-item tree-closed">
-                        <span><i class="glyphicon glyphicon-th-large"></i> 业务管理 <span class="badge" style="float:right">7</span></span>
-                        <ul style="margin-top:10px;display:none;">
-                            <li style="height:30px;">
-                                <a href="cert.html"><i class="glyphicon glyphicon-picture"></i> 资质维护</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="type.html"><i class="glyphicon glyphicon-equalizer"></i> 分类管理</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="process.html"><i class="glyphicon glyphicon-random"></i> 流程管理</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="advertisement.html"><i class="glyphicon glyphicon-hdd"></i> 广告管理</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="message.html"><i class="glyphicon glyphicon-comment"></i> 消息模板</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="project_type.html"><i class="glyphicon glyphicon-list"></i> 项目分类</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="tag.html"><i class="glyphicon glyphicon-tags"></i> 项目标签</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="list-group-item tree-closed">
-                        <a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div class="panel panel-default">
+            <div>
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
                 </div>
@@ -172,12 +51,12 @@
                             <table class="table  table-bordered">
                                 <thead>
                                 <tr>
-                                    <th width="30">#</th>
-                                    <th width="30"><input type="checkbox" id="allSelBox"></th>
+                                    <th width="60">#</th>
+                                    <th width="40"><input type="checkbox" id="allSelBox"></th>
                                     <th>账号</th>
                                     <th>名称</th>
                                     <th>锁定状态</th>
-                                    <th width="100">操作</th>
+                                    <th width="120">操作</th>
                                 </tr>
                                 </thead>
 
@@ -200,9 +79,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
 <!-- 用户添加的模态框 -->
 <div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -300,17 +176,6 @@
 <script type="text/javascript">
     var hasLike = false;
     $(function () {
-        $(".list-group-item").click(function () {
-            if ($(this).find("ul")) {
-                $(this).toggleClass("tree-closed");
-                if ($(this).hasClass("tree-closed")) {
-                    $("ul", this).hide("fast");
-                } else {
-                    $("ul", this).show("fast");
-                }
-            }
-        });
-
         pageQuery(1);
 
         //按钮点击事件
@@ -321,7 +186,6 @@
             } else {
                 hasLike = true;
             }
-
             pageQuery(1);
         });
 
@@ -338,7 +202,6 @@
             var flag = $(".check_item:checked").length==$(".check_item").length;
             $("#allSelBox").prop("checked",flag);
         });
-        
     });
 
     var pageTotal = 1;
@@ -354,7 +217,7 @@
         }
 
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "${APP_PATH}/user/pageQuery",
             data: jsonData,
             dataType: 'json',
@@ -496,7 +359,6 @@
         if (boxes.length == 0) {
             layer.msg("请选择需要删除的用户信息", {time: 2000, icon: 5, shift: 6}, function () {});
         } else {
-            console.log($("#userForm").serialize())
             layer.confirm("删除选择的用户信息, 是否继续", {icon: 3, title: '提示'}, function (cindex) {
                 // 删除选择的用户信息
                 $.ajax({
@@ -504,7 +366,6 @@
                     url: "${APP_PATH}/user/deletes",
                     data: $("#userForm").serialize(),
                     success: function (result) {
-                        console.log(result)
                         if (result.code == '200') {
                             pageQuery(1);
                         } else {

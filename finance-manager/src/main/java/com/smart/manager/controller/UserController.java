@@ -29,11 +29,11 @@ public class UserController {
 
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index(){
-        return "user/index";
+        return "user/user";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/pageQuery",method = RequestMethod.GET)
+    @RequestMapping(value = "/pageQuery",method = RequestMethod.POST)
     public ResponseModel pageQuery(String queryText, Integer pageNo, Integer pageSize){
         // 分页查询
         Map<String, Object> map = new HashMap<>();
