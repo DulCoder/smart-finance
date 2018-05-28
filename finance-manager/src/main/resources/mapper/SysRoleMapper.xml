@@ -15,6 +15,7 @@
         AND t.name LIKE concat('%',#{queryText},'%')
       </if>
     </where>
+    limit #{start}, #{size}
   </select>
 
   <select id="pageQueryCount" resultType="int">
