@@ -23,4 +23,6 @@ public interface RoleService {
     int countUserByRoleId(Long id);
 
     int deleteRole(Long id);
+
+    int deleteRoles(Map<String, Object> map);
 }

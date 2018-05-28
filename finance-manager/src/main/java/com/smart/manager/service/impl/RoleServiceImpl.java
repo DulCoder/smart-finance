@@ -56,4 +56,9 @@ public class RoleServiceImpl implements RoleService {
     public int deleteRole(Long id) {
         return roleMapper.deleteRole(id);
     }
+
+    @Override
+    public int deleteRoles(Map<String, Object> map) {
+        return roleMapper.deleteRoles(map);
+    }
 }

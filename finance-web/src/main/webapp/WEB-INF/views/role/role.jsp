@@ -44,6 +44,7 @@
         <hr style="clear:both;">
         <div class="table-responsive">
             <form id="roleForm">
+                <input type="hidden" name="_method" value="DELETE">
                 <table class="table  table-bordered">
                     <thead>
                     <tr>
@@ -300,7 +301,7 @@
                     $("#roleAddModal").modal('hide');
                     // 2、来到最后一页，显示刚才保存的数据
                     pageQuery(pageTotal);
-                    layer.msg("修改角色信息成功", {time: 2000, icon: 6, shift: 0}, function () {
+                    layer.msg(result.extend.msg, {time: 2000, icon: 6, shift: 0}, function () {
                     });
                 } else {
                     // 有哪个字段的错误信息就显示哪个字段的；
@@ -359,14 +360,14 @@
                 // 删除选择的角色信息
                 $.ajax({
                     type: "POST",
-                    url: "${APP_PATH}/role/deletes",
+                    url: "${APP_PATH}/role/roles",
                     data: $("#roleForm").serialize(),
                     success: function (result) {
                         if (result.code == '200') {
                             pageQuery(1);
+                            layer.msg(result.extend.msg, {time:2000, icon:6, shift:0}, function(){});
                         } else {
-                            layer.msg("角色信息删除失败", {time: 2000, icon: 5, shift: 6}, function () {
-                            });
+                            layer.msg(result.extend.msg, {time: 2000, icon: 5, shift: 6}, function () {});
                         }
                     }
                 });
@@ -410,8 +411,7 @@
     function saveUpdate() {
         var remark = $("#remark_update_input").val();
         if (remark.trim().length == 0) {
-            show_validate_msg("#remark_update_input", "error",
-                "角色名不能为空！");
+            show_validate_msg("#remark_update_input", "error", "角色名不能为空！");
             return false;
         } else {
             show_validate_msg("#remark_update_input", "success", "");
@@ -427,6 +427,7 @@
                     $("#roleUpdateModal").modal('hide');
                     // 2、来到最后一页，显示刚才保存的数据
                     pageQuery(pageTotal);
+                    layer.msg(result.extend.msg, {time:2000, icon:6, shift:0}, function(){});
                 } else {
                     // 有哪个字段的错误信息就显示哪个字段的；
                     if (undefined != result.extend.errorFields.remark) {

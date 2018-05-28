@@ -74,10 +74,10 @@ public class RoleController {
     public ResponseModel insert(SysRole role){
          int success = roleService.insertRole(role);
          if (success > 0){
-             return ResponseModel.success();
+             return ResponseModel.success().add("msg","新增角色成功！");
          }
 
-         return ResponseModel.failed();
+         return ResponseModel.failed().add("msg","新增角色失败！");
     }
 
     @ResponseBody
@@ -93,11 +93,11 @@ public class RoleController {
     public ResponseModel updateRole(SysRole role){
         int success = roleService.updateRole(role);
         if (success > 0){
-            return ResponseModel.success();
+            return ResponseModel.success().add("msg","修改角色成功！");
         }
 
-        return ResponseModel.failed();
-    }
+        return ResponseModel.failed().add("msg","修改角色失败！");
+}
 
     @ResponseBody
     @RequestMapping(value = "/role", method = RequestMethod.DELETE)
@@ -113,6 +113,23 @@ public class RoleController {
         }
 
         return ResponseModel.failed().add("msg","删除失败，未知错误！");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/roles", method = RequestMethod.DELETE)
+    public ResponseModel deleteRoles(Long[] roleId){
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("roleIds", roleId);
+            int success = roleService.deleteRoles(map);
+            if (success > 0){
+                return ResponseModel.success().add("msg","删除成功！");
+            }else {
+                return ResponseModel.failed().add("msg","删除失败！");
+            }
+        } catch ( Exception e ) {
+            return ResponseModel.failed().add("msg","删除失败！"+e);
+        }
     }
 
 }

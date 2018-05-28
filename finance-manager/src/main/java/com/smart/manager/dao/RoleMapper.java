@@ -29,4 +29,6 @@ public interface RoleMapper {
 
     @Delete("DELETE FROM sys_role WHERE id = #{id}")
     int deleteRole(Long id);
+
+    int deleteRoles(Map<String, Object> map);
 }

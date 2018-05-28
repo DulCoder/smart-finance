@@ -41,4 +41,11 @@
     WHERE id = #{id}
   </update>
 
+  <delete id="deleteRoles">
+    DELETE FROM sys_role WHERE id IN
+    <foreach collection="roleIds" item="id" open="(" close= ")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+
 </mapper>
