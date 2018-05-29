@@ -8,7 +8,7 @@
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="per_code" jdbcType="VARCHAR" property="perCode" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="index_no" jdbcType="VARCHAR" property="indexNo" />
     <result column="available" jdbcType="CHAR" property="available" />
   </resultMap>

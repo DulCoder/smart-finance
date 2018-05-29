@@ -1,23 +1,32 @@
 package com.smart.common.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SysPermission {
     private Long id;
 
-    private String name;
+    private String perName;
 
     private String style;
 
     private String url;
 
-    private String percode;
+    private String perCode;
 
-    private Long parentid;
+    private Long parentId;
 
-    private String parentids;
+    private String icon;
 
-    private String sortstring;
+    private String indexNo;
 
     private String available;
+
+    private boolean open = true;
+
+    private boolean checked = false;
+
+    private List<SysPermission> children = new ArrayList<SysPermission>();
 
     public Long getId() {
         return id;
@@ -27,12 +36,12 @@ public class SysPermission {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPerName() {
+        return perName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setPerName(String perName) {
+        this.perName = perName;
     }
 
     public String getStyle() {
@@ -40,7 +49,7 @@ public class SysPermission {
     }
 
     public void setStyle(String style) {
-        this.style = style == null ? null : style.trim();
+        this.style = style;
     }
 
     public String getUrl() {
@@ -48,39 +57,39 @@ public class SysPermission {
     }
 
     public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+        this.url = url;
     }
 
-    public String getPercode() {
-        return percode;
+    public String getPerCode() {
+        return perCode;
     }
 
-    public void setPercode(String percode) {
-        this.percode = percode == null ? null : percode.trim();
+    public void setPerCode(String perCode) {
+        this.perCode = perCode;
     }
 
-    public Long getParentid() {
-        return parentid;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParentid(Long parentid) {
-        this.parentid = parentid;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
-    public String getParentids() {
-        return parentids;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setParentids(String parentids) {
-        this.parentids = parentids == null ? null : parentids.trim();
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
-    public String getSortstring() {
-        return sortstring;
+    public String getIndexNo() {
+        return indexNo;
     }
 
-    public void setSortstring(String sortstring) {
-        this.sortstring = sortstring == null ? null : sortstring.trim();
+    public void setIndexNo(String indexNo) {
+        this.indexNo = indexNo;
     }
 
     public String getAvailable() {
@@ -88,6 +97,30 @@ public class SysPermission {
     }
 
     public void setAvailable(String available) {
-        this.available = available == null ? null : available.trim();
+        this.available = available;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public List<SysPermission> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysPermission> children) {
+        this.children = children;
     }
 }
