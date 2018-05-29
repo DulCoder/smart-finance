@@ -16,8 +16,8 @@ public interface RoleMapper {
 
     int insertRole(SysRole role);
 
-    @Select("SELECT COUNT(*) FROM sys_role WHERE name = #{name}")
-    int countRoleByName(String name);
+    @Select("SELECT COUNT(*) FROM sys_role WHERE role_name = #{roleName}")
+    int countRoleByName(String roleName);
 
     @Select("SELECT remark,available FROM sys_role WHERE ID = #{id}")
     SysRole queryById(Long id);

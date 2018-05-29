@@ -14,7 +14,7 @@ public interface RoleService {
 
     int insertRole(SysRole role);
 
-    int countRoleByName(String name);
+    int countRoleByName(String roleName);
 
     SysRole queryById(Long id);
 

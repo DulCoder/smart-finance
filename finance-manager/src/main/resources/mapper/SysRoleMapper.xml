@@ -3,35 +3,35 @@
 <mapper namespace="com.smart.manager.dao.RoleMapper">
   <resultMap id="BaseResultMap" type="com.smart.common.bean.SysRole">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="available" jdbcType="CHAR" property="available" />
   </resultMap>
 
   <select id="pageQueryData" resultType="com.smart.common.bean.SysRole">
-    SELECT * FROM sys_role t
+    SELECT * FROM sys_role
     <where>
       <if test="queryText != null">
-        AND t.name LIKE concat('%',#{queryText},'%')
+        AND role_name LIKE concat('%',#{queryText},'%')
       </if>
     </where>
     limit #{start}, #{size}
   </select>
 
   <select id="pageQueryCount" resultType="int">
-    SELECT COUNT(*) FROM sys_role t
+    SELECT COUNT(*) FROM sys_role
     <where>
       <if test="queryText != null">
-        AND t.name LIKE concat('%', #{queryText}, '%')
+        AND role_name LIKE concat('%', #{queryText}, '%')
       </if>
     </where>
   </select>
 
   <insert id="insertRole">
     INSERT INTO  sys_role(
-    name,remark,available
+    role_name,remark,available
     ) VALUES (
-    #{name},#{remark},#{available}
+    #{roleName},#{remark},#{available}
     )
   </insert>
 

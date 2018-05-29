@@ -60,8 +60,8 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping(value = "/checkRole", method = RequestMethod.GET)
-    public ResponseModel checkRole(String name){
-        int count = roleService.countRoleByName(name);
+    public ResponseModel checkRole(String roleName){
+        int count = roleService.countRoleByName(roleName);
         if (count > 0){
             return ResponseModel.failed().add("va_msg","该角色已存在！");
         }

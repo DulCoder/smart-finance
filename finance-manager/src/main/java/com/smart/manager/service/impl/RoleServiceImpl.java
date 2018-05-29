@@ -33,8 +33,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public int countRoleByName(String name) {
-        return roleMapper.countRoleByName(name);
+    public int countRoleByName(String roleName) {
+        return roleMapper.countRoleByName(roleName);
     }
 
     @Override

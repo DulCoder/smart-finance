@@ -3,7 +3,7 @@ package com.smart.common.bean;
 public class SysRole {
     private Long id;
 
-    private String name;
+    private String roleName;
 
     private String remark;
 
@@ -17,12 +17,12 @@ public class SysRole {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setRoleName(String roleName) {
+        this.roleName = roleName == null ? null : roleName.trim();
     }
 
     public String getRemark() {

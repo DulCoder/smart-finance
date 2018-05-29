@@ -89,7 +89,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">名称</label>
                         <div class="col-sm-10">
-                            <input type="text" name="name" onchange="roleChange('#role_add_input')"
+                            <input type="text" name="roleName" onchange="roleChange('#role_add_input')"
                                    class="form-control" id="role_add_input" placeholder="roleName" autocomplete="off">
                             <span class="help-block"></span>
                         </div>
@@ -234,13 +234,13 @@
                         tableContent += '<tr>';
                         tableContent += '  <td>' + (i + 1) + '</td>';
                         tableContent += '  <td><input type="checkbox" class="check_item" name="roleId" value="' + role.id + '"></td>';
-                        tableContent += '  <td>' + role.name + '</td>';
+                        tableContent += '  <td>' + role.roleName + '</td>';
                         tableContent += '  <td>' + (role.available == 1 ? "<span style='color: #00CC00'>可用</span>" : "<span style='color: red'>禁用</span>") + '</td>';
                         tableContent += '  <td>' + role.remark + '</td>';
                         tableContent += '  <td>';
                         tableContent += '      <button type="button" onclick="goAssignPage(' + role.id + ')" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
                         tableContent += '      <button type="button" onclick="updateRole(' + role.id + ')" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
-                        tableContent += '	  <button type="button" onclick="deleteRole(' + role.id + ', \'' + role.name + '\')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+                        tableContent += '	  <button type="button" onclick="deleteRole(' + role.id + ', \'' + role.roleName + '\')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
                         tableContent += '  </td>';
                         tableContent += '</tr>';
                     });
@@ -305,10 +305,10 @@
                     });
                 } else {
                     // 有哪个字段的错误信息就显示哪个字段的；
-                    if (undefined != result.extend.errorFields.name) {
+                    if (undefined != result.extend.errorFields.roleName) {
                         // 显示账号的错误信息
                         show_validate_msg("#role_add_input", "error",
-                            result.extend.errorFields.name);
+                            result.extend.errorFields.roleName);
                     }
                 }
             }, error: function () {
@@ -321,8 +321,8 @@
     /**
      * 删除角色
      */
-    function deleteRole(id, name) {
-        layer.confirm("删除角色信息【" + id + "】" + name + " , 是否继续", {icon: 3, title: '提示'}, function (cindex) {
+    function deleteRole(id, roleName) {
+        layer.confirm("删除角色信息【" + id + "】" + roleName + " , 是否继续", {icon: 3, title: '提示'}, function (cindex) {
 
             // 删除角色信息
             $.ajax({
@@ -475,10 +475,10 @@
      */
     function roleChange(id) {
         // 发送ajax请求校验角色名是否可用
-        var name = $(id).val();
+        var roleName = $(id).val();
         $.ajax({
             url: "${APP_PATH}/role/checkRole",
-            data: "name=" + name,
+            data: "roleName=" + roleName,
             type: "GET",
             success: function (result) {
                 if (result.code == 200) {
