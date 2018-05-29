@@ -25,4 +25,6 @@ public interface RoleService {
     int deleteRole(Long id);
 
     int deleteRoles(Map<String, Object> map);
+
+    List<SysRole> queryAll();
 }

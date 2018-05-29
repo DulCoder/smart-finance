@@ -69,16 +69,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int deleteUserRoles(Map<String, Object> map) {
-        return 0;
+        return userMapper.deleteUserRoles(map);
     }
 
     @Override
     public int insertUserRoles(Map<String, Object> map) {
-        return 0;
+        return userMapper.insertUserRoles(map);
     }
 
     @Override
-    public List<Integer> queryRoleidsByUserid(Integer id) {
-        return null;
+    public List<Long> queryRoleIdsByUserId(Long id) {
+        return userMapper.queryRoleIdsByUserId(id);
     }
+
 }

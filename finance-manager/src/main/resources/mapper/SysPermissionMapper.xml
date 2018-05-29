@@ -3,139 +3,14 @@
 <mapper namespace="com.smart.manager.dao.SysPermissionMapper">
   <resultMap id="BaseResultMap" type="com.smart.common.bean.SysPermission">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="per_name" jdbcType="VARCHAR" property="perName" />
     <result column="style" jdbcType="VARCHAR" property="style" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="percode" jdbcType="VARCHAR" property="percode" />
-    <result column="parentid" jdbcType="BIGINT" property="parentid" />
-    <result column="parentids" jdbcType="VARCHAR" property="parentids" />
-    <result column="sortstring" jdbcType="VARCHAR" property="sortstring" />
+    <result column="per_code" jdbcType="VARCHAR" property="perCode" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
+    <result column="index_no" jdbcType="VARCHAR" property="indexNo" />
     <result column="available" jdbcType="CHAR" property="available" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, name, style, url, percode, parentid, parentids, sortstring, available
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sys_permission
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sys_permission
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.smart.common.bean.SysPermission">
-    insert into sys_permission (id, name, style, 
-      url, percode, parentid, 
-      parentids, sortstring, available
-      )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{style,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{percode,jdbcType=VARCHAR}, #{parentid,jdbcType=BIGINT}, 
-      #{parentids,jdbcType=VARCHAR}, #{sortstring,jdbcType=VARCHAR}, #{available,jdbcType=CHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.smart.common.bean.SysPermission">
-    insert into sys_permission
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="style != null">
-        style,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="percode != null">
-        percode,
-      </if>
-      <if test="parentid != null">
-        parentid,
-      </if>
-      <if test="parentids != null">
-        parentids,
-      </if>
-      <if test="sortstring != null">
-        sortstring,
-      </if>
-      <if test="available != null">
-        available,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="style != null">
-        #{style,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="percode != null">
-        #{percode,jdbcType=VARCHAR},
-      </if>
-      <if test="parentid != null">
-        #{parentid,jdbcType=BIGINT},
-      </if>
-      <if test="parentids != null">
-        #{parentids,jdbcType=VARCHAR},
-      </if>
-      <if test="sortstring != null">
-        #{sortstring,jdbcType=VARCHAR},
-      </if>
-      <if test="available != null">
-        #{available,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.smart.common.bean.SysPermission">
-    update sys_permission
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="style != null">
-        style = #{style,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="percode != null">
-        percode = #{percode,jdbcType=VARCHAR},
-      </if>
-      <if test="parentid != null">
-        parentid = #{parentid,jdbcType=BIGINT},
-      </if>
-      <if test="parentids != null">
-        parentids = #{parentids,jdbcType=VARCHAR},
-      </if>
-      <if test="sortstring != null">
-        sortstring = #{sortstring,jdbcType=VARCHAR},
-      </if>
-      <if test="available != null">
-        available = #{available,jdbcType=CHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.smart.common.bean.SysPermission">
-    update sys_permission
-    set name = #{name,jdbcType=VARCHAR},
-      style = #{style,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      percode = #{percode,jdbcType=VARCHAR},
-      parentid = #{parentid,jdbcType=BIGINT},
-      parentids = #{parentids,jdbcType=VARCHAR},
-      sortstring = #{sortstring,jdbcType=VARCHAR},
-      available = #{available,jdbcType=CHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
 </mapper>

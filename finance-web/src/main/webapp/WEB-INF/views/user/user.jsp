@@ -5,7 +5,8 @@
   Time: 17:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="zh-CN">
 <head>
     <title>用户管理</title>
@@ -17,68 +18,69 @@
 
     <link rel="stylesheet" href="${APP_PATH}/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${APP_PATH}/css/doc.min.css">
 </head>
 
 <body>
-            <div>
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
-                </div>
-                <div class="panel-body">
-                    <form class="form-inline" role="form" style="float:left;">
-                        <div class="form-group has-feedback">
-                            <div class="input-group">
-                                <div class="input-group-addon">账号</div>
-                                <input id="queryText" class="form-control has-success" type="text"
-                                       placeholder="请输入查询条件">
-                            </div>
-                        </div>
-                        <button id="queryBtn" type="button" class="btn btn-warning"><i
-                                class="glyphicon glyphicon-search"></i> 查询
-                        </button>
-                    </form>
-                    <button type="button" class="btn btn-danger" onclick="deleteUsers()"
-                            style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除
-                    </button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="addUser()"><i
-                            class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
-                    <br>
-                    <hr style="clear:both;">
-                    <div class="table-responsive">
-                        <form id="userForm">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <table class="table  table-bordered">
-                                <thead>
-                                <tr>
-                                    <th width="60">#</th>
-                                    <th width="40"><input type="checkbox" id="allSelBox"></th>
-                                    <th>账号</th>
-                                    <th>名称</th>
-                                    <th>锁定状态</th>
-                                    <th width="120">操作</th>
-                                </tr>
-                                </thead>
-
-                                <tbody id="userData">
-
-                                </tbody>
-
-                                <tfoot>
-                                <tr>
-                                    <td colspan="6" align="center">
-                                        <ul class="pagination">
-
-                                        </ul>
-                                    </td>
-                                </tr>
-
-                                </tfoot>
-                            </table>
-                        </form>
-                    </div>
+<div>
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline" role="form" style="float:left;">
+            <div class="form-group has-feedback">
+                <div class="input-group">
+                    <div class="input-group-addon">账号</div>
+                    <input id="queryText" class="form-control has-success" type="text"
+                           placeholder="请输入查询条件">
                 </div>
             </div>
+            <button id="queryBtn" type="button" class="btn btn-warning"><i
+                    class="glyphicon glyphicon-search"></i> 查询
+            </button>
+        </form>
+        <button type="button" class="btn btn-danger" onclick="deleteUsers()"
+                style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除
+        </button>
+        <button type="button" class="btn btn-primary" style="float:right;" onclick="addUser()"><i
+                class="glyphicon glyphicon-plus"></i> 新增
+        </button>
+        <br>
+        <hr style="clear:both;">
+        <div class="table-responsive">
+            <form id="userForm">
+                <input type="hidden" name="_method" value="DELETE">
+                <table class="table  table-bordered">
+                    <thead>
+                    <tr>
+                        <th width="60">#</th>
+                        <th width="40"><input type="checkbox" id="allSelBox"></th>
+                        <th>账号</th>
+                        <th>名称</th>
+                        <th>锁定状态</th>
+                        <th width="120">操作</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="userData">
+
+                    </tbody>
+
+                    <tfoot>
+                    <tr>
+                        <td colspan="6" align="center">
+                            <ul class="pagination">
+
+                            </ul>
+                        </td>
+                    </tr>
+
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- 用户添加的模态框 -->
 <div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -102,7 +104,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">名称</label>
                         <div class="col-sm-10">
-                            <input type="text" name="username" id="username_add_input" class="form-control" placeholder="username">
+                            <input type="text" name="username" id="username_add_input" class="form-control"
+                                   placeholder="username">
                             <span class="help-block"></span>
                         </div>
                     </div>
@@ -141,7 +144,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-10">
-                            <input type="text" name="username" id="username_update_input" maxlength="35" class="form-control"
+                            <input type="text" name="username" id="username_update_input" maxlength="35"
+                                   class="form-control"
                                    placeholder="userName" autocomplete="off">
                             <span class="help-block"></span>
                         </div>
@@ -168,6 +172,47 @@
     </div>
 </div>
 
+<%--角色分配模态框--%>
+<div class="modal fade" id="assignRoleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">分配角色</h4>
+            </div>
+            <div class="modal-body">
+                <form id="roleForm" role="form" class="form-inline">
+                    <input type="hidden" name="userId" value="">
+                    <div class="form-group">
+                        <label>未分配角色列表</label><br>
+                        <select id="leftList" name="unAssignRoleIds" class="form-control" multiple size="10"
+                                style="width:200px;overflow-y:auto;">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <ul>
+                            <li id="left2RightBtn" class="btn btn-default glyphicon glyphicon-chevron-right"></li>
+                            <br>
+                            <li id="right2LeftBtn" class="btn btn-default glyphicon glyphicon-chevron-left"
+                                style="margin-top:20px;"></li>
+                        </ul>
+                    </div>
+                    <div class="form-group" style="margin-left:40px;">
+                        <label>已分配角色列表</label><br>
+                        <select id="rightList" name="assignRoleIds" class="form-control" multiple size="10"
+                                style="width:200px;overflow-y:auto;">
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="${APP_PATH}/js/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -177,7 +222,13 @@
     var hasLike = false;
     $(function () {
         pageQuery(1);
+        initClick();
+    });
 
+    /**
+     * 初始化点击事件
+     */
+    function initClick() {
         //按钮点击事件
         $("#queryBtn").click(function () {  //条件查询按钮
             var queryText = $("#queryText").val();
@@ -197,12 +248,58 @@
             });
         });
 
-        $(document).on("click",".check_item",function(){ //复选框点击事件
+        $(document).on("click", ".check_item", function () { //复选框点击事件
             //判断当前选择中的元素是否等于总数
-            var flag = $(".check_item:checked").length==$(".check_item").length;
-            $("#allSelBox").prop("checked",flag);
+            var flag = $(".check_item:checked").length == $(".check_item").length;
+            $("#allSelBox").prop("checked", flag);
         });
-    });
+
+        $("#left2RightBtn").click(function(){
+            var opts = $("#leftList :selected");
+            if (opts.length == 0) {
+                layer.msg("请选择需要分配的角色数据", {time:2000, icon:5, shift:6}, function(){});
+            } else {
+                $.ajax({
+                    type : "POST",
+                    url  : "${APP_PATH}/user/saveAssign",
+                    data : $("#roleForm").serialize(),
+                    success : function(result) {
+                        if (result.code =='200') {
+                            $("#rightList").append(opts);
+                            layer.msg(result.extend.msg, {time:2000, icon:6}, function(){});
+                        } else {
+                            layer.msg(result.extend.msg, {time:2000, icon:5, shift:6}, function(){
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#right2LeftBtn").click(function(){
+            var opts = $("#rightList :selected");
+            if (opts.length == 0) {
+                layer.msg("请选择需要取消分配的角色数据", {time:2000, icon:5, shift:6}, function(){
+
+                });
+            } else {
+                $.ajax({
+                    type : "POST",
+                    url  : "${APP_PATH}/user/cancelAssign",
+                    data : $("#roleForm").serialize(),
+                    success : function(result) {
+                        if (result.code =='200') {
+                            $("#leftList").append(opts);
+                            layer.msg(result.extend.msg, {time:2000, icon:6}, function(){
+                            });
+                        } else {
+                            layer.msg(result.extend.msg, {time:2000, icon:5, shift:6}, function(){});
+                        }
+                    }
+                });
+            }
+        });
+    }
 
     var pageTotal = 1;
     /**
@@ -242,7 +339,7 @@
                         tableContent += '  <td>' + user.username + '</td>';
                         tableContent += '  <td>' + (user.locked == 0 ? "<span style='color: green'>未锁定</span>" : "<span style='color: red'>已锁定</span>") + '</td>';
                         tableContent += '  <td>';
-                        tableContent += '      <button type="button" onclick="goAssignPage(' + user.id + ')" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
+                        tableContent += '      <button type="button" onclick="assignRole(' + user.id + ')" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
                         tableContent += '      <button type="button" onclick="updateUser(' + user.id + ')" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
                         tableContent += '	  <button type="button" onclick="deleteUser(' + user.id + ', \'' + user.userAcc + '\')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
                         tableContent += '  </td>';
@@ -269,7 +366,8 @@
                     $("#userData").html(tableContent);
                     $(".pagination").html(pageContent);
                 } else {
-                    layer.msg("用户信息分页查询失败", {time: 2000, icon: 5, shift: 6}, function () {});
+                    layer.msg("用户信息分页查询失败", {time: 2000, icon: 5, shift: 6}, function () {
+                    });
                 }
             }
         });
@@ -292,7 +390,7 @@
      * 保存新用户
      */
     function saveUser() {
-        if (validate_add_form()==0) {
+        if (validate_add_form() == 0) {
             return false;
         }
 
@@ -308,7 +406,8 @@
 
                     // 2、来到最后一页，显示刚才保存的数据
                     pageQuery(pageTotal);
-                    layer.msg("修改用户信息成功", {time:2000, icon:6, shift:0}, function(){});
+                    layer.msg("修改用户信息成功", {time: 2000, icon: 6, shift: 0}, function () {
+                    });
                 } else {
                     // 有哪个字段的错误信息就显示哪个字段的；
                     if (undefined != result.extend.errorFields.userAcc) {
@@ -317,7 +416,7 @@
                             result.extend.errorFields.userAcc);
                     }
                 }
-            },error:function () {
+            }, error: function () {
                 // 1、关闭模态框
                 $("#userAddModal").modal('hide');
             }
@@ -328,19 +427,21 @@
      * 删除用户
      */
     function deleteUser(id, userAcc) {
-        layer.confirm("删除用户信息【" +id+"=="+ userAcc + "】, 是否继续", {icon: 3, title: '提示'}, function (cindex) {
+        layer.confirm("删除用户信息【" + id + "==" + userAcc + "】, 是否继续", {icon: 3, title: '提示'}, function (cindex) {
 
             // 删除用户信息
             $.ajax({
                 url: "${APP_PATH}/user/user",
                 type: "POST",
-                data:{_method:"DELETE","id":id},
+                data: {_method: "DELETE", "id": id},
                 success: function (result) {
-                    if (result.code=='200') {
+                    if (result.code == '200') {
                         pageQuery(1);
-                        layer.msg("删除用户成功", {time:2000, icon:6, shift:0}, function(){});
+                        layer.msg("删除用户成功", {time: 2000, icon: 6, shift: 0}, function () {
+                        });
                     } else {
-                        layer.msg("用户信息删除失败", {time: 2000, icon: 5, shift: 6}, function () {});
+                        layer.msg("用户信息删除失败", {time: 2000, icon: 5, shift: 6}, function () {
+                        });
                     }
                 }
             });
@@ -357,7 +458,8 @@
     function deleteUsers() {
         var boxes = $("#userData :checkbox");
         if (boxes.length == 0) {
-            layer.msg("请选择需要删除的用户信息", {time: 2000, icon: 5, shift: 6}, function () {});
+            layer.msg("请选择需要删除的用户信息", {time: 2000, icon: 5, shift: 6}, function () {
+            });
         } else {
             layer.confirm("删除选择的用户信息, 是否继续", {icon: 3, title: '提示'}, function (cindex) {
                 // 删除选择的用户信息
@@ -391,11 +493,11 @@
         reset_form("#userUpdateModal form");
 
         $.ajax({
-            url:"${APP_PATH}/user/user",
-            type:"GET",
-            data:{"id":id},
-            success:function (result) {
-                if (result.code=='200'){
+            url: "${APP_PATH}/user/user",
+            type: "GET",
+            data: {"id": id},
+            success: function (result) {
+                if (result.code == '200') {
                     $("#username_update_input").val(result.extend.user.username);
                     $("#userUpdateModal input[name=locked]").val([result.extend.user.locked]);
                 }
@@ -413,7 +515,7 @@
      */
     function saveUpdate() {
         var username = $("#username_update_input").val();
-        if (username.trim().length==0) {
+        if (username.trim().length == 0) {
             show_validate_msg("#username_update_input", "error",
                 "用户名不能为空！");
             return false;
@@ -439,7 +541,7 @@
                             result.extend.errorFields.username);
                     }
                 }
-            },error:function () {
+            }, error: function () {
                 // 1、关闭模态框
                 $("#userUpdateModal").modal('hide');
             }
@@ -449,8 +551,35 @@
     /**
      * 给用户信分配角色
      */
-    function goAssignPage(id) {
-        window.location.href = "${APP_PATH}/user/assign?id=" + id;
+    function assignRole(id) {
+        reset_form("#assignRoleModal form");
+        $("#roleForm input[name=userId]").val(id);
+        $.ajax({
+            url: "${APP_PATH}/user/getRole",
+            type: "GET",
+            data: {"id": id},
+            success: function (result) {
+                var left = result.extend.unAssignRoles;
+                var right = result.extend.assignedRoles;
+
+                var options = '';
+                for (var i = 0;i<left.length;i++){
+                    options = options+'<option value="'+left[i].id+'">'+left[i].roleName+'</option>'
+                }
+                $("#leftList").html(options);
+
+                options = '';
+                for (var i = 0;i<right.length;i++){
+                    options = options+'<option value="'+right[i].id+'">'+right[i].roleName+'</option>'
+                }
+                $("#rightList").html(options);
+            }
+        });
+
+        // 弹出模态框
+        $("#assignRoleModal").modal({
+            backdrop: "static"
+        });
     }
 
     /**
@@ -469,7 +598,7 @@
         }
 
         var username = $("#username_add_input").val();
-        if (username.trim().length==0) {
+        if (username.trim().length == 0) {
             show_validate_msg("#username_add_input", "error",
                 "用户名不能为空");
             return 0;

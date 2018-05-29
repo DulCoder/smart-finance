@@ -32,4 +32,11 @@ public interface UserMapper {
     int deleteUserById(Long id);
 
     int deleteUsers(Map<String, Object> map);
+
+    @Select("SELECT sys_role_id FROM sys_user_role WHERE sys_user_id = #{id}")
+    List<Long> queryRoleIdsByUserId(Long id);
+
+    int deleteUserRoles(Map<String, Object> map);
+
+    int insertUserRoles(Map<String, Object> map);
 }

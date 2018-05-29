@@ -34,5 +34,5 @@ public interface UserService {
 
     int insertUserRoles(Map<String, Object> map);
 
-    List<Integer> queryRoleidsByUserid(Integer id);
+    List<Long> queryRoleIdsByUserId(Long id);
 }

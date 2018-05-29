@@ -31,4 +31,7 @@ public interface RoleMapper {
     int deleteRole(Long id);
 
     int deleteRoles(Map<String, Object> map);
+
+    @Select("SELECT * FROM sys_role")
+    List<SysRole> queryAll();
 }

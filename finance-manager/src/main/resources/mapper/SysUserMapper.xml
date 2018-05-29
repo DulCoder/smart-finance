@@ -57,4 +57,18 @@
     </foreach>
   </delete>
 
+  <insert id="insertUserRoles">
+    INSERT INTO sys_user_role (sys_user_id, sys_role_id) VALUES
+    <foreach collection="roleIds" item="roleId" separator=",">
+      (#{userId}, #{roleId})
+    </foreach>
+  </insert>
+
+  <delete id="deleteUserRoles">
+    DELETE FROM sys_user_role WHERE sys_user_id = #{userId} AND sys_role_id IN
+    <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+      #{roleId}
+    </foreach>
+  </delete>
+
 </mapper>

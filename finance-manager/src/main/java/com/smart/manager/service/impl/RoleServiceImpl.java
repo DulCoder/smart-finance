@@ -61,4 +61,9 @@ public class RoleServiceImpl implements RoleService {
     public int deleteRoles(Map<String, Object> map) {
         return roleMapper.deleteRoles(map);
     }
+
+    @Override
+    public List<SysRole> queryAll() {
+        return roleMapper.queryAll();
+    }
 }
