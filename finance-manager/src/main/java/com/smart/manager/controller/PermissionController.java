@@ -34,7 +34,7 @@ public class PermissionController {
 
     @ResponseBody
     @RequestMapping(value = "/loadData", method = RequestMethod.GET)
-    public ResponseModel loadData(){
+    public Object loadData(){
         List<SysPermission> permissions = new ArrayList<>();
 
         List<SysPermission> ps = permissionService.queryAll();
@@ -52,7 +52,7 @@ public class PermissionController {
             }
         }
 
-        return ResponseModel.success().add("permissions",permissions);
+        return permissions;
     }
 
 }

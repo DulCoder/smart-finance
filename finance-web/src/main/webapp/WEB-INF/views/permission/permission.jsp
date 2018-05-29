@@ -17,16 +17,7 @@
 
     <link rel="stylesheet" href="${APP_PATH}/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${APP_PATH}/css/main.css">
     <link rel="stylesheet" href="${APP_PATH}/js/ztree/zTreeStyle.css">
-    <style>
-        .tree li {
-            list-style-type: none;
-            cursor:pointer;
-        }
-        table tbody tr:nth-child(odd){background:#F4F4F4;}
-        table tbody td:nth-child(even){color:#C00;}
-    </style>
 </head>
 <body>
     <div>
@@ -45,9 +36,18 @@
     <script src="${APP_PATH}/js/ztree/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript">
     $(function () {
-
         var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                },
+                key: {
+                    name: "perName",
+                    pId: "parentId"
+                }
+            },
             async: {
+                type:'GET',
                 enable: true,
                 url:"${APP_PATH}/permission/loadData",
                 autoParam:["id", "name=n", "level=lv"]
@@ -57,11 +57,11 @@
                 addDiyDom: function(treeId, treeNode){
                     var icoObj = $("#" + treeNode.tId + "_ico");
                     if ( treeNode.icon ) {
-                        icoObj.removeClass("button ico_docu ico_open").addClass(treeNode.icon).css("background","");
+                        icoObj.removeClass("button ico_docu ico_open").addClass("glyphicon "+treeNode.icon).css("background","");
                     }
                 },
                 addHoverDom: function(treeId, treeNode){
-                    var aObj = $("#" + treeNode.tId + "_a"); // tId = permissionTree_1, ==> $("#permissionTree_1_a")
+                    var aObj = $("#" + treeNode.tId + "_a");
                     aObj.attr("href", "javascript:;");
                     if (treeNode.editNameFlag || $("#btnGroup"+treeNode.tId).length>0) return;
                     var s = '<span id="btnGroup'+treeNode.tId+'">';
