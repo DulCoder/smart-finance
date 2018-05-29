@@ -456,8 +456,7 @@
      *批量删除
      */
     function deleteUsers() {
-        var boxes = $("#userData :checkbox");
-        if (boxes.length == 0) {
+        if ($(".check_item:checked").length == 0) {
             layer.msg("请选择需要删除的用户信息", {time: 2000, icon: 5, shift: 6}, function () {
             });
         } else {
