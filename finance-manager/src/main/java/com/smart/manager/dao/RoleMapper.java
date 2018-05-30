@@ -34,4 +34,9 @@ public interface RoleMapper {
 
     @Select("SELECT * FROM sys_role")
     List<SysRole> queryAll();
+
+    int insertRolePermission(Map<String, Object> paramMap);
+
+    @Delete("DELETE FROM sys_role_permission WHERE sys_role_id = #{roleId}")
+    int deleteRolePermissions(Map<String, Object> paramMap);
 }
