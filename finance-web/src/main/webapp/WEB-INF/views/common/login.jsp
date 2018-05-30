@@ -114,7 +114,6 @@
         }
 
         var password = MD5(username+'#'+pswd);
-        console.log(username+'#'+pswd)
         var data = {'userAcc':username,'password':password,'vCode':vCode};
         $.ajax({
             url:"${APP_PATH}/sys/submitLogin",

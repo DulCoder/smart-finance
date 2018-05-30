@@ -183,6 +183,7 @@
             },
             view: {
                 selectedMulti: false,
+                fontCss: {'font-family': '微软雅黑', 'font-size' : '18px','margin-top':'8px'},
                 addDiyDom: function (treeId, treeNode) {
                     var icoObj = $("#" + treeNode.tId + "_ico");
                     if (treeNode.icon) {
@@ -330,6 +331,9 @@
         });
     }
 
+    /**
+     * 删除许可节点
+     */
     function deleteNode(id) {
         layer.confirm("删除许可信息, 是否继续", {icon: 3, title: '提示'}, function (cindex) {
             // 删除选择的用户信息
