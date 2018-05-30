@@ -1,6 +1,7 @@
 package com.smart.manager.service;
 
 import com.smart.common.bean.SysPermission;
+import com.smart.common.bean.SysUser;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface PermissionService {
     int update(SysPermission permission);
 
     int delete(Long id);
+
+    List<Long> queryPermissionIdsByRoleId(Long roleId);
+
+    List<SysPermission> queryPermissionsByUser(SysUser user);
 }

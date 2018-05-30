@@ -27,4 +27,6 @@ public interface RoleService {
     int deleteRoles(Map<String, Object> map);
 
     List<SysRole> queryAll();
+
+    int insertRolePermission(Map<String, Object> paramMap);
 }

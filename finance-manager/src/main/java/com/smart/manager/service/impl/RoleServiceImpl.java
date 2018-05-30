@@ -66,4 +66,12 @@ public class RoleServiceImpl implements RoleService {
     public List<SysRole> queryAll() {
         return roleMapper.queryAll();
     }
+
+    @Override
+    public int insertRolePermission(Map<String, Object> paramMap) {
+        if (roleMapper.deleteRolePermissions(paramMap) > 0)
+        return roleMapper.insertRolePermission(paramMap);
+        else
+            return 0;
+    }
 }

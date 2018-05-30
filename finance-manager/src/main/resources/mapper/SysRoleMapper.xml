@@ -48,4 +48,10 @@
     </foreach>
   </delete>
 
+  <insert id="insertRolePermission">
+    INSERT INTO sys_role_permission (sys_role_id, sys_permission_id) VALUES
+    <foreach collection="permissionIds" item="permissionId" separator=",">
+      ( #{roleId}, #{permissionId} )
+    </foreach>
+  </insert>
 </mapper>

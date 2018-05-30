@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="${APP_PATH}/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${APP_PATH}/js/ztree/zTreeStyle.css">
 </head>
 <body>
 <div>
@@ -165,10 +166,31 @@
     </div>
 </div>
 
+<%--给角色分配权限许可模态框--%>
+<div class="modal fade" id="assignPermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">分配权限许可</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="permissionTree" class="ztree"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="role_assign_btn" onClick="saveAssign()">确认分配</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="${APP_PATH}/js/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/js/other/docs.min.js"></script>
 <script src="${APP_PATH}/js/layer/layer.js"></script>
+<script src="${APP_PATH}/js/ztree/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript">
     var hasLike = false;
     $(function () {
@@ -238,7 +260,7 @@
                         tableContent += '  <td>' + (role.available == 1 ? "<span style='color: #00CC00'>可用</span>" : "<span style='color: red'>禁用</span>") + '</td>';
                         tableContent += '  <td>' + role.remark + '</td>';
                         tableContent += '  <td>';
-                        tableContent += '      <button type="button" onclick="goAssignPage(' + role.id + ')" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
+                        tableContent += '      <button type="button" onclick="assignPermission(' + role.id + ')" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
                         tableContent += '      <button type="button" onclick="updateRole(' + role.id + ')" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
                         tableContent += '	  <button type="button" onclick="deleteRole(' + role.id + ', \'' + role.roleName + '\')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
                         tableContent += '  </td>';
@@ -440,6 +462,82 @@
                 $("#roleUpdateModal").modal('hide');
             }
         });
+    }
+
+    var roleId;
+    /**
+     * 分配权限
+     */
+    function assignPermission(id) {
+        roleId = id;
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: false
+                },
+                key: {
+                    checked:"checked",
+                    name: "perName",
+                    pId: "parentId"
+                }
+            },
+            check : {
+                enable : true
+            },
+            async: {
+                enable: true,
+                type:'POST',
+                url:"${APP_PATH}/permission/loadAssignedData?roleId="+id,
+                autoParam:["id", "name=n", "level=lv"]
+            },
+            view: {
+                selectedMulti: false,
+                addDiyDom: function(treeId, treeNode){
+                    console.log(treeNode)
+                    var icoObj = $("#" + treeNode.tId + "_ico");
+                    if ( treeNode.icon ) {
+                        icoObj.removeClass("button ico_docu ico_open").addClass("glyphicon "+treeNode.icon).css("background","");
+                    }
+                }
+            }
+        };
+        $.fn.zTree.init($("#permissionTree"), setting);
+
+        // 弹出模态框
+        $("#assignPermissionModal").modal({
+            backdrop: "static"
+        });
+    }
+
+    /**
+     * 保存分配的权限信息
+     */
+    function saveAssign() {
+        var treeObj = $.fn.zTree.getZTreeObj("permissionTree");
+        var nodes = treeObj.getCheckedNodes(true);
+        if ( nodes.length == 0 ) {
+            layer.msg("请选择需要分配的许可信息", {time:2000, icon:5, shift:6}, function(){});
+        } else {
+            var data = "roleId="+roleId;
+            $.each(nodes, function(i, node){
+                data += "&permissionIds="+node.id
+            });
+            $.ajax({
+                type : "POST",
+                url  : "${APP_PATH}/role/saveAssign",
+                data : data,
+                success : function (result) {
+                    if (result.code == '200') {
+                        layer.msg(result.extend.msg, {time:2000, icon:6}, function(){});
+                    } else {
+                        layer.msg(result.extend.msg, {time:2000, icon:5, shift:6}, function(){});
+                    }
+                }
+            });
+
+            // 1、关闭模态框
+            $("#assignPermissionModal").modal('hide');
+        }
     }
 
     /**

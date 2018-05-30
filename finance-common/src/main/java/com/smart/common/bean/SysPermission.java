@@ -24,7 +24,7 @@ public class SysPermission {
 
     private boolean open = true;
 
-    private boolean checked = false;
+    private boolean checked;
 
     private List<SysPermission> children = new ArrayList<SysPermission>();
 

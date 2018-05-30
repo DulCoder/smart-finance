@@ -1,6 +1,7 @@
 package com.smart.manager.service.impl;
 
 import com.smart.common.bean.SysPermission;
+import com.smart.common.bean.SysUser;
 import com.smart.manager.dao.PermissionMapper;
 import com.smart.manager.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,15 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public int delete(Long id) {
         return permissionMapper.delete(id);
+    }
+
+    @Override
+    public List<Long> queryPermissionIdsByRoleId(Long roleId) {
+        return permissionMapper.queryPermissionIdsByRoleId(roleId);
+    }
+
+    @Override
+    public List<SysPermission> queryPermissionsByUser(SysUser user) {
+        return permissionMapper.queryPermissionsByUser(user);
     }
 }

@@ -13,6 +13,23 @@
     <result column="available" jdbcType="CHAR" property="available" />
   </resultMap>
 
+  <select id="queryPermissionsByUser" resultType="com.smart.common.bean.SysPermission">
+    SELECT
+    *
+    FROM sys_permission
+    WHERE id IN (
+    SELECT
+    sys_permission_id
+    FROM sys_role_permission
+    WHERE sys_role_id IN (
+    SELECT
+    sys_role_id
+    FROM sys_user_role
+    WHERE sys_user_id = #{id}
+    )
+    )
+  </select>
+
   <insert id="insert">
     INSERT INTO sys_permission
     (per_name,style,url,parent_id,icon,available)

@@ -54,6 +54,37 @@ public class PermissionController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/loadAssignedData", method = RequestMethod.POST)
+    public Object loadAssignedData(Long roleId){
+        List<SysPermission> permissions = new ArrayList<>();
+        List<SysPermission> ps = permissionService.queryAll();
+
+        // 获取当前角色已经分配的许可信息
+        List<Long> permissionIds = permissionService.queryPermissionIdsByRoleId(roleId);
+
+        Map<Long, SysPermission> permissionMap = new HashMap<>();
+        for (SysPermission p : ps) {
+            if ( permissionIds.contains(p.getId()) ) {
+                p.setChecked(true);
+            } else {
+                p.setChecked(false);
+            }
+            permissionMap.put(p.getId(), p);
+        }
+        for ( SysPermission p : ps ) {
+            SysPermission child = p;
+            if ( child.getParentId() == 0 ) {
+                permissions.add(p);
+            } else {
+                SysPermission parent = permissionMap.get(child.getParentId());
+                parent.getChildren().add(child);
+            }
+        }
+
+        return permissions;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/checkPermission", method = RequestMethod.POST)
     public ResponseModel checkPermission(String name){
         int count  = permissionService.countByName(name);

@@ -1,6 +1,7 @@
 package com.smart.manager.dao;
 
 import com.smart.common.bean.SysPermission;
+import com.smart.common.bean.SysUser;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,4 +27,9 @@ public interface PermissionMapper {
 
     @Delete("DELETE FROM sys_permission WHERE id = #{id}")
     int delete(Long id);
+
+    @Select("SELECT sys_permission_id FROM sys_role_permission WHERE sys_role_id = #{roleId}")
+    List<Long> queryPermissionIdsByRoleId(Long roleId);
+
+    List<SysPermission> queryPermissionsByUser(SysUser user);
 }
