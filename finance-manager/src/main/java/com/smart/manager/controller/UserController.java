@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/checkUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkUser", method = RequestMethod.POST)
     public ResponseModel checkUser(String userAcc) {
         int count = userService.countUserByAcc(userAcc);
         if (count == 0) {

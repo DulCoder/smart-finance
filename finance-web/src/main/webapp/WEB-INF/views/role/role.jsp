@@ -478,7 +478,7 @@
         $.ajax({
             url: "${APP_PATH}/role/checkRole",
             data: "roleName=" + roleName,
-            type: "GET",
+            type: "POST",
             success: function (result) {
                 if (result.code == 200) {
                     show_validate_msg(id, "success", "角色名可用");

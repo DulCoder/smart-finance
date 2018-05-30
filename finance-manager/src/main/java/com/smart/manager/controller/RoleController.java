@@ -59,7 +59,7 @@ public class RoleController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/checkRole", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkRole", method = RequestMethod.POST)
     public ResponseModel checkRole(String roleName){
         int count = roleService.countRoleByName(roleName);
         if (count > 0){

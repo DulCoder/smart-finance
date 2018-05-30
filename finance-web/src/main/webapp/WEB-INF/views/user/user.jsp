@@ -617,7 +617,7 @@
         $.ajax({
             url: "${APP_PATH}/user/checkUser",
             data: "userAcc=" + userAcc,
-            type: "GET",
+            type: "POST",
             success: function (result) {
                 if (result.code == 200) {
                     show_validate_msg(id, "success", "用户名可用");
