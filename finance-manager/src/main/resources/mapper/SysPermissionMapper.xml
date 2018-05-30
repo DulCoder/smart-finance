@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.smart.manager.dao.SysPermissionMapper">
+<mapper namespace="com.smart.manager.dao.PermissionMapper">
   <resultMap id="BaseResultMap" type="com.smart.common.bean.SysPermission">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="per_name" jdbcType="VARCHAR" property="perName" />
@@ -12,5 +12,17 @@
     <result column="index_no" jdbcType="VARCHAR" property="indexNo" />
     <result column="available" jdbcType="CHAR" property="available" />
   </resultMap>
+
+  <insert id="insert">
+    INSERT INTO sys_permission
+    (per_name,style,url,parent_id,icon,available)
+    VALUES (#{perName},#{style},#{url},#{parentId},#{icon},#{available})
+  </insert>
+
+  <update id="update">
+    UPDATE sys_permission
+    SET per_name = #{perName},url = #{url},icon = #{icon},available = #{available}
+    WHERE id = #{id}
+  </update>
 
 </mapper>

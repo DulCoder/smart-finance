@@ -20,4 +20,29 @@ public class PermissionServiceImpl implements PermissionService {
     public List<SysPermission> queryAll() {
         return permissionMapper.queryAll();
     }
+
+    @Override
+    public int countByName(String name) {
+        return permissionMapper.countByName(name);
+    }
+
+    @Override
+    public int insert(SysPermission permission) {
+        return permissionMapper.insert(permission);
+    }
+
+    @Override
+    public SysPermission queryById(Long id) {
+        return permissionMapper.queryById(id);
+    }
+
+    @Override
+    public int update(SysPermission permission) {
+        return permissionMapper.update(permission);
+    }
+
+    @Override
+    public int delete(Long id) {
+        return permissionMapper.delete(id);
+    }
 }

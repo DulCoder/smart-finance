@@ -31,7 +31,6 @@ public class PermissionController {
         return "permission/permission";
     }
 
-
     @ResponseBody
     @RequestMapping(value = "/loadData", method = RequestMethod.GET)
     public Object loadData(){
@@ -43,16 +42,71 @@ public class PermissionController {
             permissionMap.put(p.getId(), p);
         }
         for ( SysPermission p : ps ) {
-            SysPermission child = p;
-            if ( child.getParentId() == 0 ) {
+            if ( p.getParentId() == 0 ) {
                 permissions.add(p);
             } else {
-                SysPermission parent = permissionMap.get(child.getParentId());
-                parent.getChildren().add(child);
+                SysPermission parent = permissionMap.get(p.getParentId());
+                parent.getChildren().add(p);
             }
         }
 
         return permissions;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/checkPermission", method = RequestMethod.POST)
+    public ResponseModel checkPermission(String name){
+        int count  = permissionService.countByName(name);
+        if (count == 0){
+            return ResponseModel.success();
+        }
+        return ResponseModel.failed().add("va_msg","该许可已存在！");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/permission", method = RequestMethod.POST)
+    public ResponseModel insert(SysPermission permission){
+        try {
+            int success = permissionService.insert(permission);
+            if (success > 0){
+                return ResponseModel.success().add("msg","新增许可成功！");
+            }else {
+                return ResponseModel.failed().add("msg","新增许可失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseModel.failed().add("msg","新增许可失败,"+e);
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/permission", method = RequestMethod.GET)
+    public ResponseModel getPermissionById(Long id){
+        SysPermission permission = permissionService.queryById(id);
+
+        return ResponseModel.success().add("permission",permission);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/permission", method = RequestMethod.PUT)
+    public ResponseModel update(SysPermission permission){
+        int success = permissionService.update(permission);
+        if (success > 0){
+            return ResponseModel.success().add("msg","修改许可信息成功");
+        }
+
+        return ResponseModel.failed().add("msg","修改许可信息失败");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/permission", method = RequestMethod.DELETE)
+    public ResponseModel delete(Long id){
+        int success = permissionService.delete(id);
+        if (success > 0){
+            return ResponseModel.success().add("msg","许可删除成功");
+        }
+
+        return ResponseModel.failed().add("msg","删除许可失败");
     }
 
 }
