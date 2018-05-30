@@ -1,10 +1,12 @@
 package com.smart.web.controller;
 
 import com.smart.common.bean.ResponseModel;
+import com.smart.common.bean.SysPermission;
 import com.smart.common.bean.SysUser;
 import com.smart.common.util.LoggerUtils;
 import com.smart.common.util.vcode.Captcha;
 import com.smart.common.util.vcode.SpecCaptcha;
+import com.smart.manager.service.PermissionService;
 import com.smart.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by zhengxianyou on 2018/5/23 0023
@@ -27,6 +29,8 @@ import java.util.Date;
 public class DispatcherController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PermissionService permissionService;
 
     /**
      * 获取验证码（jpg版本）
@@ -81,7 +85,29 @@ public class DispatcherController {
             if (entity.getPassword().equals(user.getPassword())) {
                 session.setAttribute("_isLogin",true);
                 session.setAttribute("loginUser",user);
-                return ResponseModel.success().add("message", "登录成功！");
+                // 获取用户权限信息
+                List<SysPermission> permissions = permissionService.queryPermissionsByUser(user);
+                Map<Long, SysPermission> permissionMap = new HashMap<>();
+                SysPermission root = null;
+                Set<String> uriSet = new HashSet<>();
+                for ( SysPermission permission : permissions ) {
+                    permissionMap.put(permission.getId(), permission);
+                    if ( permission.getUrl() != null && !"".equals(permission.getUrl()) ) {
+                        uriSet.add(session.getServletContext().getContextPath() + permission.getUrl());
+                    }
+                }
+                session.setAttribute("authUriSet", uriSet);
+                for ( SysPermission permission : permissions ) {
+                    if ( permission.getParentId() == 0 ) {
+                        root = permission;
+                    } else {
+                        SysPermission parent = permissionMap.get(permission.getParentId());
+                        parent.getChildren().add(permission);
+                    }
+                }
+                session.setAttribute("rootPermission", root);
+
+                return ResponseModel.success().add("message", "登录成功！").add("permissions",permissions);
             } else {
                 return ResponseModel.failed().add("message", "密码错误！");
             }
