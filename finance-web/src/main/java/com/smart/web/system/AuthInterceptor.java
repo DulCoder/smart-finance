@@ -28,20 +28,20 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         // 查询所有需要验证的路径集合
         List<SysPermission> permissions = permissionService.queryAll();
         Set<String> uriSet = new HashSet<>();
-        for ( SysPermission permission : permissions ) {
-            if ( permission.getUrl() != null && !"".equals(permission.getUrl()) ) {
+        for (SysPermission permission : permissions) {
+            if (permission.getUrl() != null && !"".equals(permission.getUrl())) {
                 uriSet.add(path + permission.getUrl());
             }
         }
 
-        if ( uriSet.contains(uri) ) {
+        if (uriSet.contains(uri)) {
             // 权限验证
             // 判断当前用户是否拥有对应的权限
-            Set<String> authUriSet = (Set<String>)request.getSession().getAttribute("authUriSet");
-            if ( authUriSet.contains(uri) ) {
+            Set<String> authUriSet = (Set<String>) request.getSession().getAttribute("authUriSet");
+            if (authUriSet.contains(uri)) {
                 return true;
             } else {
-                response.sendRedirect(path + "/error");
+                response.sendRedirect(path + "/sys/error");
                 return false;
             }
         } else {

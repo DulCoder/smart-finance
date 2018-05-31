@@ -11,6 +11,6 @@
     <title>出错了</title>
 </head>
 <body>
-<h1>网页发生了一些问题！</h1>
+非法访问！
 </body>
 </html>
