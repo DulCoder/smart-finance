@@ -41,7 +41,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             if (authUriSet.contains(uri)) {
                 return true;
             } else {
-                response.sendRedirect(path + "/sys/error");
+                response.sendRedirect(path + "/error");
                 return false;
             }
         } else {

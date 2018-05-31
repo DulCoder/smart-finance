@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -88,7 +88,7 @@
      * 获取验证码
      */
     function getVCode() {
-        $("#imgCode").attr("src","${APP_PATH}/sys/getVCode?"+ Math.random());
+        $("#imgCode").attr("src","${APP_PATH}/getVCode?"+ Math.random());
     }
 
     /**
@@ -116,7 +116,7 @@
         var password = MD5(username+'#'+pswd);
         var data = {'userAcc':username,'password':password,'vCode':vCode};
         $.ajax({
-            url:"${APP_PATH}/sys/submitLogin",
+            url:"${APP_PATH}/submitLogin",
             data:data,
             async:false,
             type:'POST',
@@ -124,7 +124,7 @@
             success:function (callBack) {
                 if (callBack.code=='200'){
                     layer.msg(callBack.extend.message, {time:2000, icon:6, shift:0}, function(){});
-                    window.location.href = "${APP_PATH}/sys/main";
+                    window.location.href = "${APP_PATH}/main";
                 }else {
                     layer.msg(callBack.extend.message, {time:2000, icon:5, shift:6}, function(){});
                     getVCode();

@@ -24,7 +24,7 @@ import java.util.*;
  * Created by zhengxianyou on 2018/5/23 0023
  */
 @Controller
-@RequestMapping("/sys/*")
+@RequestMapping("/*")
 @Scope("prototype")
 public class DispatcherController {
     @Autowired
@@ -71,7 +71,6 @@ public class DispatcherController {
     @ResponseBody
     public ResponseModel submitLogin(SysUser entity, String vCode, HttpServletRequest request) {
         HttpSession session = request.getSession(false);//true：如果存在session取出，没有则创建;false：没有返回null
-        session.setAttribute("_isLogin",false);
         if (null != session) {
             if (!session.getAttribute("_code").toString().equalsIgnoreCase(vCode)) {
                 return ResponseModel.failed().add("message", "验证码错误！");
@@ -83,37 +82,36 @@ public class DispatcherController {
         SysUser user = userService.query4Login(entity);
         if (null != user) {
             if (entity.getPassword().equals(user.getPassword())) {
-                session.setAttribute("_isLogin",true);
                 session.setAttribute("loginUser",user);
-                // 获取用户权限信息
-                List<SysPermission> permissions = permissionService.queryPermissionsByUser(user);
-                Map<Long, SysPermission> permissionMap = new HashMap<>();
-                SysPermission root = null;
-                Set<String> uriSet = new HashSet<>();
-                for ( SysPermission permission : permissions ) {
-                    permissionMap.put(permission.getId(), permission);
-                    if ( permission.getUrl() != null && !"".equals(permission.getUrl()) ) {
-                        uriSet.add(session.getServletContext().getContextPath() + permission.getUrl());
-                    }
-                }
-                session.setAttribute("authUriSet", uriSet);
-                for ( SysPermission permission : permissions ) {
-                    if ( permission.getParentId() == 0 ) {
-                        root = permission;
-                    } else {
-                        SysPermission parent = permissionMap.get(permission.getParentId());
-                        parent.getChildren().add(permission);
-                    }
-                }
-                session.setAttribute("rootPermission", root);
 
-                return ResponseModel.success().add("message", "登录成功！").add("permissions",permissions);
+                return ResponseModel.success().add("message", "登录成功！");
             } else {
                 return ResponseModel.failed().add("message", "密码错误！");
             }
         }
 
         return ResponseModel.failed().add("message", "该用户不存在！");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/userPermissions",method = RequestMethod.GET)
+    public Object getPermissions(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        SysUser user = (SysUser) session.getAttribute("loginUser");
+
+        // 获取用户权限信息
+        List<SysPermission> permissions = permissionService.queryPermissionsByUser(user);
+        Map<Long, SysPermission> permissionMap = new HashMap<>();
+        Set<String> uriSet = new HashSet<>();
+        for ( SysPermission permission : permissions ) {
+            permissionMap.put(permission.getId(), permission);
+            if ( permission.getUrl() != null && !"".equals(permission.getUrl()) ) {
+                uriSet.add(session.getServletContext().getContextPath() + "/"+ permission.getUrl());
+            }
+        }
+        session.setAttribute("authUriSet", uriSet);
+
+        return permissions;
     }
 
     /**
@@ -165,7 +163,7 @@ public class DispatcherController {
 
     @RequestMapping("/main")
     public String main() {
-        return "common/main";
+        return "index/index";
     }
 
 }
