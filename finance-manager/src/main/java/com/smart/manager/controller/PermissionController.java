@@ -34,20 +34,22 @@ public class PermissionController {
     @ResponseBody
     @RequestMapping(value = "/loadData", method = RequestMethod.GET)
     public Object loadData(){
+        SysPermission root = new SysPermission();
+        root.setId(0L);
+        root.setIcon("glyphicon-th-large");
+        root.setPerName("系统菜单");
         List<SysPermission> permissions = new ArrayList<>();
+        permissions.add(root);
 
         List<SysPermission> ps = permissionService.queryAll();
         Map<Long, SysPermission> permissionMap = new HashMap<>();
+        permissionMap.put(0L,root);
         for (SysPermission p : ps) {
             permissionMap.put(p.getId(), p);
         }
         for ( SysPermission p : ps ) {
-            if ( p.getParentId() == 0 ) {
-                permissions.add(p);
-            } else {
                 SysPermission parent = permissionMap.get(p.getParentId());
                 parent.getChildren().add(p);
-            }
         }
 
         return permissions;
@@ -56,13 +58,18 @@ public class PermissionController {
     @ResponseBody
     @RequestMapping(value = "/loadAssignedData", method = RequestMethod.POST)
     public Object loadAssignedData(Long roleId){
+        SysPermission root = new SysPermission();
+        root.setId(0L);
+        root.setIcon("glyphicon-th-large");
+        root.setPerName("系统菜单");
         List<SysPermission> permissions = new ArrayList<>();
+        permissions.add(root);
         List<SysPermission> ps = permissionService.queryAll();
 
         // 获取当前角色已经分配的许可信息
         List<Long> permissionIds = permissionService.queryPermissionIdsByRoleId(roleId);
-
         Map<Long, SysPermission> permissionMap = new HashMap<>();
+        permissionMap.put(0L,root);
         for (SysPermission p : ps) {
             if ( permissionIds.contains(p.getId()) ) {
                 p.setChecked(true);
@@ -73,12 +80,8 @@ public class PermissionController {
         }
         for ( SysPermission p : ps ) {
             SysPermission child = p;
-            if ( child.getParentId() == 0 ) {
-                permissions.add(p);
-            } else {
                 SysPermission parent = permissionMap.get(child.getParentId());
                 parent.getChildren().add(child);
-            }
         }
 
         return permissions;
