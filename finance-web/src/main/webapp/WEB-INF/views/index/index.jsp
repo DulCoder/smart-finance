@@ -59,14 +59,14 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="${APP_PATH}/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">administrator</span>
+                            <span class="hidden-xs">${loginUser.username}</span>
                         </a>
                         <ul class="dropdown-menu pull-right">
-                            <li><a class="menuItem" data-id="userInfo" href="/SystemManage/User/Info"><i class="fa fa-user"></i>个人信息</a></li>
+                            <li><a class="menuItem" data-id="userInfo" href="javascript:void (0)"><i class="fa fa-user"></i>个人信息</a></li>
                             <li><a href="javascript:void(0);"><i class="fa fa-trash-o"></i>清空缓存</a></li>
                             <li><a href="javascript:void(0);"><i class="fa fa-paint-brush"></i>皮肤设置</a></li>
                             <li class="divider"></li>
-                            <li><a href="~/Login/OutLogin"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
+                            <li><a href="${APP_PATH}/logout"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -81,7 +81,6 @@
                     <img src="${APP_PATH}/images/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>administrator</p>
                     <a><i class="fa fa-circle text-success"></i>在线</a>
                 </div>
             </div>
@@ -213,7 +212,6 @@
                             }
                         });
                     }
-                    if ($(this).parents('.menuTab').prev('.menuTab').size()) {
                         var activeId = $(this).parents('.menuTab').prev('.menuTab:last').data('id');
                         $(this).parents('.menuTab').prev('.menuTab:last').addClass('active');
                         $('.mainContent .LRADMS_iframe').each(function () {
@@ -229,7 +227,6 @@
                                 return false;
                             }
                         });
-                    }
                 }
                 else {
                     $(this).parents('.menuTab').remove();
@@ -276,9 +273,7 @@
                     var str1 = '<iframe class="LRADMS_iframe" id="iframe' + dataId + '" name="iframe' + dataId + '"  width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
                     $('.mainContent').find('iframe.LRADMS_iframe').hide();
                     $('.mainContent').append(str1);
-                    //$.loading(true);
                     $('.mainContent iframe:visible').load(function () {
-                        //$.loading(false);
                     });
                     $('.menuTabs .page-tabs-content').append(str);
                     $.learuntab.scrollToTab($('.menuTab.active'));
@@ -381,12 +376,8 @@
                 });
                 $('.tabCloseAll').on('click', function () {
                     $('.page-tabs-content').children("[data-id]").find('.fa-remove').each(function () {
-                        $('.LRADMS_iframe[data-id="' + $(this).data('id') + '"]').remove();
+                        $('.LRADMS_iframe').remove();
                         $(this).parents('a').remove();
-                    });
-                    $('.page-tabs-content').children("[data-id]:first").each(function () {
-                        $('.LRADMS_iframe[data-id="' + $(this).data('id') + '"]').show();
-                        $(this).addClass("active");
                     });
                     $('.page-tabs-content').css("margin-left", "0");
                 });
@@ -447,7 +438,6 @@
                 });
                 var _html = "";
                 $.each(data, function (i) {
-                    console.log(data)
                     var row = data[i];
                     if (row.parentId == "0") {
                         if (i == 0) {
