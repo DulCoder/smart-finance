@@ -25,6 +25,9 @@
             border:none;
             background: url("${APP_PATH}/images/loginError.jpg") no-repeat;
         }
+        body{
+            background:url("${APP_PATH}/images/errorbg.jpg");
+        }
     </style>
 </head>
 <body>

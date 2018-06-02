@@ -25,6 +25,9 @@
             border:none;
             background: url("${APP_PATH}/images/404.jpg") no-repeat;
         }
+        body{
+            background:url("${APP_PATH}/images/404bg.jpg");
+        }
     </style>
 </head>
 <body>
