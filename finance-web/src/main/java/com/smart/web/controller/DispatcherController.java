@@ -145,23 +145,28 @@ public class DispatcherController {
         return ResponseModel.failed().add("message", "非法访问！");
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "common/login";
     }
 
-    @RequestMapping("/error")
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error() {
         return "open/error";
     }
 
-    @RequestMapping("/logout")
+    @RequestMapping(value = "/loginError", method = RequestMethod.GET)
+    public String loginError(){
+        return "open/loginError";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:login";
     }
 
-    @RequestMapping("/main")
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main() {
         return "index/index";
     }

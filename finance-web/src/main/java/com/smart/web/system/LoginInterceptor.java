@@ -18,13 +18,13 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        // 判断当前用户是否已经登陆
+        // 判断当前用户是否已经登录
         HttpSession session = httpServletRequest.getSession();
         SysUser loginUser = (SysUser) session.getAttribute("loginUser");
 
         if (loginUser == null) {
             String path = session.getServletContext().getContextPath();
-            httpServletResponse.sendRedirect(path + "/login");
+            httpServletResponse.sendRedirect(path + "/loginError");
             return false;
         } else {
             return true;

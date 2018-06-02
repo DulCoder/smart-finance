@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: zhengxianyou
-  Date: 2018/5/22 0022
-  Time: 13:46
+  Date: 2018/6/2 0002
+  Time: 9:28
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,15 +15,15 @@
     <meta name="description" content="">
     <meta name="keys" content="">
     <meta name="author" content="">
-    <title>出错了</title>
+    <title>系统提示</title>
 
     <style type=text/css>
         .msg{
-            width:1000px;
-            height:615px;
-            margin:60px auto;
+            width:662px;
+            height:388px;
+            margin:40px auto;
             border:none;
-            background: url("${APP_PATH}/images/404.jpg") no-repeat;
+            background: url("${APP_PATH}/images/loginError.jpg") no-repeat;
         }
     </style>
 </head>
