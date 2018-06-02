@@ -1,6 +1,6 @@
 # smart-finance
 **RBAC权限系统**  
- 多模块父子工程：spring+springmvc+mybatis+boostrap   
+ 多模块父子工程：spring+springmvc+mybatis+boostrap，RESTful架构风格   
  通过自定义拦截器实现访问控制，并没有使用第三方权限框架
 ## 开发环境
 - 编译工具：IntelliJ IDEA
