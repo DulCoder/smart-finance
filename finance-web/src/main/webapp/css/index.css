@@ -106,7 +106,7 @@ a:hover,a:active,a:focus{outline:none;text-decoration:none;color:#72afd2}
 .dropdown-menu>li>a>.glyphicon,.dropdown-menu>li>a>.fa,.dropdown-menu>li>a>.ion{margin-right:10px}
 .dropdown-menu>li>a:hover{background-color:#e1e3e9;color:#333}
 .dropdown-menu>.divider{background-color:#eee}
-@media (max-width:991px){.navbar-nav>.user-menu>.dropdown-menu>.user-footer .btn-default:hover{background-color:#f9f9f9}}.navbar-nav>.user-menu .user-image{float:left;width:25px;height:25px;border-radius:50%;margin-right:10px;margin-top:-2px}
+@media (max-width:991px){.navbar-nav>.user-menu>.dropdown-menu>.user-footer .btn-default:hover{background-color:#f9f9f9}}.navbar-nav>.user-menu .user-image{float:left;width:35px;height:35px;border-radius:50%;margin-right:10px;margin-top:-7px}
 @media (max-width:767px){.navbar-nav>.user-menu .user-image{float:none;margin-right:0;margin-top:-8px;line-height:10px}}.open:not(.dropup)>.animated-dropdown-menu{backface-visibility:visible !important;-webkit-animation:flipInX .7s both;-o-animation:flipInX .7s both;animation:flipInX .7s both}
 
 .content-wrapper {margin-left: 230px;}

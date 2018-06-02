@@ -38,28 +38,10 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope-o "></i>
-                            <span class="label label-success">4</span>
-                        </a>
-                    </li>
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                    </li>
-                    <li class="dropdown tasks-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-flag-o"></i>
-                            <span class="label label-danger">9</span>
-                        </a>
-                    </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="${APP_PATH}/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">${loginUser.username}</span>
+                            <img src="${APP_PATH}/images/user.jpg" class="user-image" alt="User Image">
+                            <span style="font-size: 17px;margin-right: 5px" class="hidden-xs">${loginUser.username}</span>
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <li><a class="menuItem" data-id="userInfo" href="javascript:void (0)"><i class="fa fa-user"></i>个人信息</a></li>
@@ -76,14 +58,6 @@
     <!--左边导航-->
     <div class="main-sidebar">
         <div class="sidebar">
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="${APP_PATH}/images/user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <a><i class="fa fa-circle text-success"></i>在线</a>
-                </div>
-            </div>
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -100,16 +74,10 @@
     <!--中间内容-->
     <div id="content-wrapper" class="content-wrapper">
         <div class="content-tabs">
-            <button class="roll-nav roll-left tabLeft">
-                <i class="fa fa-backward"></i>
-            </button>
             <nav class="page-tabs menuTabs">
                 <div class="page-tabs-content" style="margin-left: 0px;">
                 </div>
             </nav>
-            <button class="roll-nav roll-right tabRight">
-                <i class="fa fa-forward" style="margin-left: 3px;"></i>
-            </button>
             <div class="btn-group roll-nav roll-right">
                 <button class="dropdown tabClose" data-toggle="dropdown">
                     页签操作<i class="fa fa-caret-down" style="padding-left: 3px;"></i>
