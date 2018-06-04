@@ -28,7 +28,7 @@
 <div class="wrapper">
     <!--头部信息-->
     <header class="main-header">
-        <a href="http://www.learun.cn/adms/index.html" target="_blank" class="logo">
+        <a href="javascript:void(0)" target="_blank" class="logo">
             <span class="logo-mini">SF</span>
             <span class="logo-lg"><strong>Smart-Finance</strong></span>
         </a>
