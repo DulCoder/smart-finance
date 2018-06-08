@@ -1,0 +1,2 @@
+-- 建库
+CREATE DATABASE `smart_finance` DEFAULT CHARACTER SET utf8;
